@@ -38,11 +38,10 @@ fn main() {
         eprintln!("Password must be at least 16 characters long");
         std::process::exit(1);
     }
-    let require = bs58::decode(args.require).into_vec().expect("Invalid require");
     let monitor = Arc::new(monitor::Monitor::new());
     for i in 0..args.worker {
         let monitor = monitor.clone();
-        let require = require.clone();
+        let require = args.require.clone();
         let password = args.password.clone();
         std::thread::spawn(move || {
             miner::create_miner(&password, i, &require, monitor);

@@ -13,7 +13,7 @@ pub fn mnemonic_to_string(mnemonic: &Mnemonic) -> String {
 pub fn create_miner(
     start: &str,
     worker_id: usize,
-    require: &[u8],
+    require: &str,
     monitor: Arc<Monitor>
 ) {
     let start = repeat(start.to_owned(), worker_id);
