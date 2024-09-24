@@ -1,5 +1,7 @@
 use std::sync::Arc;
 use clap::Parser;
+use tracing::Level;
+use tracing_subscriber::FmtSubscriber;
 
 mod address;
 mod monitor;
@@ -19,8 +21,18 @@ struct Args {
     require: String
 }
 
+fn setup_tracing() {
+    let subscriber = FmtSubscriber::builder()
+        .with_max_level(Level::INFO)
+        .with_target(false)
+        .finish();
+
+    tracing::subscriber::set_global_default(subscriber).expect("setting default subscriber failed");
+}
+
 
 fn main() {
+    setup_tracing();
     let args = Args::parse();
     if args.password.len() < 32 {
         eprintln!("Password must be at least 16 characters long");
