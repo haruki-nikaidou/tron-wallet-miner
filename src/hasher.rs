@@ -4,7 +4,7 @@ pub fn next_hash(before: [u8;16]) -> [u8;16] {
 
 fn derive_result(hash: [u8;32]) -> [u8;16] {
     let mut result = [0u8; 16];
-    result[..16].copy_from_slice(&hash);
+    result[..16].copy_from_slice(&hash[..16]);
     result
 }
 
